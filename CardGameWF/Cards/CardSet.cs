@@ -24,17 +24,26 @@ namespace CardGameWF
 
         public CardSet(int count) : this()
         {
+            FullDeck(count);
+        }
+
+        private void FullDeck(int count)
+        {
             foreach (var figure in Enum.GetValues(typeof(CardFigure)))
             {
                 foreach (var suit in Enum.GetValues(typeof(CardSuit)))
                 {
-                    Cards.Add(new Card((CardFigure)figure, (CardSuit)suit));
+                    Cards.Add(GetCard((CardFigure)figure, (CardSuit)suit));
                 }
             }
             if (count < Count)
                 Cards.RemoveRange(0, Count - count);
         }
 
+        public virtual Card GetCard(CardFigure figure, CardSuit suit)
+        {
+            return new Card(figure, suit);
+        }
 
         public void Mix()
         {

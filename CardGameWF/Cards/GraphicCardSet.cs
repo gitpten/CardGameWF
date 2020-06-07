@@ -17,17 +17,14 @@ namespace CardGameWF
             Panel = panel;
         }
 
-        public GraphicCardSet(Panel panel, int count):this(panel)
+        public GraphicCardSet(Panel panel, int count):base(count)
         {
-            foreach (var figure in Enum.GetValues(typeof(CardFigure)))
-            {
-                foreach (var suit in Enum.GetValues(typeof(CardSuit)))
-                {
-                    Cards.Add(new GraphicCard((CardFigure)figure, (CardSuit)suit));
-                }
-            }
-            if (count < Count)
-                Cards.RemoveRange(0, Count - count);
+            Panel = panel;
+        }
+
+        public override Card GetCard(CardFigure figure, CardSuit suit)
+        {
+            return new GraphicCard(figure, suit);
         }
 
         public override void Show()
